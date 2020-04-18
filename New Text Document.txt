@@ -1,0 +1,15 @@
+Linux
+Go into your bot folder with : cd BotFolderLocation
+Use nano start.sh to create a file called start.sh and start editing.
+Paste the code below :
+# /bin/sh
+while true
+do
+echo Starting Bot
+node bot.js
+echo Restarting Bot in 5 Seconds...
+sleep 5
+done
+Press CTRL+C then Y and ENTER to save the start.sh file.
+Use chmod 777 start.sh to give the file executable permission.
+Done! Now you can start your bot by executing that file with : ./start.sh
