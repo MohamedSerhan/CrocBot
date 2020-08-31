@@ -23,7 +23,7 @@ module.exports = class PlayFileCommand extends Command {
                         .then(connection => {
                             if(message.member.id !== "169494506050158594") {
                                  message.say(__dirname );
-                                 dispatcher = connection.play(__dirname + "\\SoundFiles\\" + cName + "Sound.mp3");
+                                 dispatcher = connection.play("./SoundFiles/" + cName + "Sound.mp3");
                             }
                             else {
                                  dispatcher = connection.play("C:\\Users\\xxsku\\Documents\\MyCode\\CrocBotWorkspace\\CrocBot\\SoundFiles\\" + "shortairhorn" + "Sound.mp3");
