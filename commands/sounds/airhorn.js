@@ -35,7 +35,7 @@ module.exports = class PlayFileCommand extends Command {
             }
             else {
                 //message.say("You must be in a voice channel to summon me!");
-                message.say(`Log1: ${message} Log2: ${message.member.voice.channel} Log3: ${message.guild.voice.connection} Log4: ${message.member.id}`);
+                message.say(`Log1: ${message} Log2: ${message.member.voice.channel} Log3: ${message.member.id}`);
             }
         }
         
