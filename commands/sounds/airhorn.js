@@ -21,12 +21,7 @@ module.exports = class PlayFileCommand extends Command {
                 if(!message.guild.voiceConnection) {
                     message.member.voice.channel.join()
                         .then(connection => {
-                            if(message.member.id !== "169494506050158594") {
-                                 dispatcher = connection.play("./SoundFiles/" + cName + "Sound.mp3");
-                            }
-                            else {
-                                 dispatcher = connection.play("C:\\Users\\xxsku\\Documents\\MyCode\\CrocBotWorkspace\\CrocBot\\SoundFiles\\" + "shortairhorn" + "Sound.mp3");
-                            }
+                            dispatcher = connection.play("./SoundFiles/" + cName + "Sound.mp3");
                         dispatcher.on("finish", end => {
                             connection.disconnect();
                         });
