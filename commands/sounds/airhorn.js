@@ -16,7 +16,7 @@ module.exports = class PlayFileCommand extends Command {
 
 	run(message) {
         function joinChannel() {
-            if(message.member.voiceChannel) {
+            if(message.member.voice.channel) {
                 if(!message.guild.voiceConnection) {
                     message.member.voiceChannel.join()
                         .then(connection => {
@@ -34,8 +34,8 @@ module.exports = class PlayFileCommand extends Command {
                 }
             }
             else {
-                //message.say("You must be in a voice channel to summon me!");
-                message.say(`Log1: ${message} Log2: ${message.member.voice.channel} Log3: ${message.member.id}`);
+                message.say("You must be in a voice channel to summon me!");
+                //message.say(`Log1: ${message} Log2: ${message.member.voice.channel} Log3: ${message.member.id}`);
             }
         }
         
