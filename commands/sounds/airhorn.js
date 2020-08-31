@@ -21,10 +21,10 @@ module.exports = class PlayFileCommand extends Command {
                     message.member.voice.channel.join()
                         .then(connection => {
                             if(message.member.id !== "169494506050158594") {
-                                const dispatcher = connection.playFile("C:\\Users\\xxsku\\Documents\\MyCode\\CrocBotWorkspace\\CrocBot\\SoundFiles\\" + cName + "Sound.mp3");
+                                const dispatcher = connection.play("C:\\Users\\xxsku\\Documents\\MyCode\\CrocBotWorkspace\\CrocBot\\SoundFiles\\" + cName + "Sound.mp3");
                             }
                             else {
-                                const dispatcher = connection.playFile("C:\\Users\\xxsku\\Documents\\MyCode\\CrocBotWorkspace\\CrocBot\\SoundFiles\\" + "shortairhorn" + "Sound.mp3");
+                                const dispatcher = connection.play("C:\\Users\\xxsku\\Documents\\MyCode\\CrocBotWorkspace\\CrocBot\\SoundFiles\\" + "shortairhorn" + "Sound.mp3");
                             }
                         dispatcher.on("end", end => {
                             leaveChannel();
