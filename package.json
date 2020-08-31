@@ -9,6 +9,8 @@
   "author": "Mohamed Serhan",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.1.1"
+    "discord.js": "^12.3.1",
+    "ffmpeg": "0.0.4",
+    "opusscript": "0.0.7"
   }
 }
