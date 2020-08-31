@@ -1,22 +1,39 @@
 const { Command } = require('discord.js-commando');
+const path = require("path");
+const fileName = path.basename(__filename);
+const cName = fileName.substring(0, fileName.indexOf('.'));
+let dispatcher;
 
-module.exports = class ResumeCommand extends Command {
+
+module.exports = class PlayFileCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'resume',
+			name: cName,
 			group: 'sounds',
-			memberName: 'resume',
-            description: 'Resume the sound stream.',
+			memberName: cName,
+            description: 'Plays a ' + cName + ' sound file.',
 		});
 	}
 
 	run(message) {
-       var fetched = ops.active.get(message.guild.id);
-       if(!fetched) return message.say("There currently isn't any music playing!");
-       if(message.member.voiceChannel !== message.guild.me.voiceChannel) return message.say("Sorry, you need to be in the channel to control me!");
-       if(!fetched.dispatcher.paused) return message.say("Music is already paused!");
-       
-       fetched.dispatcher.resume();
-       message.say("Sounds are now playing.");
+        function joinChannel() {
+            if(message.member.voice.channel) {
+                if(!message.guild.voiceConnection) {
+                    message.member.voice.channel.join()
+                        .then(connection => {
+                            dispatcher = connection.play("./SoundFiles/" + cName + "Sound.mp3");
+                        dispatcher.on("finish", end => {
+                            connection.disconnect();
+                        });
+                    })
+                .catch(console.error);
+                }
+            }
+            else {
+                message.say("You must be in a voice channel to summon me!");
+            }
+        }
+        
+        joinChannel();
 	}
 };

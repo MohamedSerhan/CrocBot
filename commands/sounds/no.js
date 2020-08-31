@@ -2,6 +2,7 @@ const { Command } = require('discord.js-commando');
 const path = require("path");
 const fileName = path.basename(__filename);
 const cName = fileName.substring(0, fileName.indexOf('.'));
+let dispatcher;
 
 
 module.exports = class PlayFileCommand extends Command {
@@ -16,13 +17,13 @@ module.exports = class PlayFileCommand extends Command {
 
 	run(message) {
         function joinChannel() {
-            if(message.member.voiceChannel) {
+            if(message.member.voice.channel) {
                 if(!message.guild.voiceConnection) {
-                    message.member.voiceChannel.join()
+                    message.member.voice.channel.join()
                         .then(connection => {
-                            const dispatcher = connection.playFile("C:\\Users\\xxsku\\Documents\\MyCode\\CrocBotWorkspace\\CrocBot\\SoundFiles\\" + cName + "Sound.mp3");
-                        dispatcher.on("end", end => {
-                            leaveChannel();
+                            dispatcher = connection.play("./SoundFiles/" + cName + "Sound.mp3");
+                        dispatcher.on("finish", end => {
+                            connection.disconnect();
                         });
                     })
                 .catch(console.error);
@@ -33,14 +34,6 @@ module.exports = class PlayFileCommand extends Command {
             }
         }
         
-        function leaveChannel() {
-            if(message.guild.voiceConnection) {
-                message.guild.voiceConnection.disconnect();
-            }
-            else {
-                message.say("I must be in a voice channel to be banished!");
-            }
-        }
         joinChannel();
 	}
 };
