@@ -18,7 +18,7 @@ module.exports = class PlayFileCommand extends Command {
         function joinChannel() {
             if(message.member.voice.channel) {
                 if(!message.guild.voiceConnection) {
-                    message.member.voiceChannel.join()
+                    message.member.voice.channel.join()
                         .then(connection => {
                             if(message.member.id !== "169494506050158594") {
                                 const dispatcher = connection.playFile("C:\\Users\\xxsku\\Documents\\MyCode\\CrocBotWorkspace\\CrocBot\\SoundFiles\\" + cName + "Sound.mp3");
