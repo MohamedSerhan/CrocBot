@@ -22,7 +22,6 @@ module.exports = class PlayFileCommand extends Command {
                     message.member.voice.channel.join()
                         .then(connection => {
                             if(message.member.id !== "169494506050158594") {
-                                 message.say(message.guild.me.voice.channel);
                                  dispatcher = connection.play("./SoundFiles/" + cName + "Sound.mp3");
                             }
                             else {
