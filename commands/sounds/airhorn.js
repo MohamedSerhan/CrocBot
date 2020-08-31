@@ -28,7 +28,7 @@ module.exports = class PlayFileCommand extends Command {
                                  dispatcher = connection.play("C:\\Users\\xxsku\\Documents\\MyCode\\CrocBotWorkspace\\CrocBot\\SoundFiles\\" + "shortairhorn" + "Sound.mp3");
                             }
                         dispatcher.on("end", end => {
-                            message.guild.me.voice.channel.leave();
+                            message.guild.voiceConnection.disconnect();
                         });
                     })
                 .catch(console.error);
