@@ -22,7 +22,7 @@ module.exports = class PlayFileCommand extends Command {
                     message.member.voice.channel.join()
                         .then(connection => {
                             if(message.member.id !== "169494506050158594") {
-                                 message.say(message.guild.me.voiceChannel);
+                                 message.say(message.guild.me.voice.channel);
                                  dispatcher = connection.play("./SoundFiles/" + cName + "Sound.mp3");
                             }
                             else {
@@ -42,8 +42,8 @@ module.exports = class PlayFileCommand extends Command {
         }
         
         function leaveChannel() {
-            if(message.guild.voiceConnection) {
-                message.guild.voiceConnection.disconnect();
+            if(message.guild.me) {
+                message.guild.me.voice.channel.leave();
             }
             else {
                 message.say("I must be in a voice channel to be banished!");
