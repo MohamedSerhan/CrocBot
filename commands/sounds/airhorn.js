@@ -29,7 +29,7 @@ module.exports = class PlayFileCommand extends Command {
                                  dispatcher = connection.play("C:\\Users\\xxsku\\Documents\\MyCode\\CrocBotWorkspace\\CrocBot\\SoundFiles\\" + "shortairhorn" + "Sound.mp3");
                             }
                         dispatcher.on("end", end => {
-                            leaveChannel();
+                            message.guild.me.voice.channel.leave();
                         });
                     })
                 .catch(console.error);
@@ -41,14 +41,14 @@ module.exports = class PlayFileCommand extends Command {
             }
         }
         
-        function leaveChannel() {
-            if(message.guild.me) {
-                message.guild.me.voice.channel.leave();
-            }
-            else {
-                message.say("I must be in a voice channel to be banished!");
-            }
-        }
+        // function leaveChannel() {
+        //     if(message.guild.me) {
+        //         message.guild.me.voice.channel.leave();
+        //     }
+        //     else {
+        //         message.say("I must be in a voice channel to be banished!");
+        //     }
+        // }
         joinChannel();
 	}
 };
