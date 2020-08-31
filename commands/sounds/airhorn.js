@@ -29,7 +29,6 @@ module.exports = class PlayFileCommand extends Command {
                             }
                         dispatcher.on("finish", end => {
                             connection.disconnect();
-                            //message.guild.voiceConnection.disconnect();
                         });
                     })
                 .catch(console.error);
@@ -37,18 +36,9 @@ module.exports = class PlayFileCommand extends Command {
             }
             else {
                 message.say("You must be in a voice channel to summon me!");
-                //message.say(`Log1: ${message} Log2: ${message.member.voice.channel} Log3: ${message.member.id}`);
             }
         }
         
-        // function leaveChannel() {
-        //     if(message.guild.me) {
-        //         message.guild.me.voice.channel.leave();
-        //     }
-        //     else {
-        //         message.say("I must be in a voice channel to be banished!");
-        //     }
-        // }
         joinChannel();
 	}
 };
