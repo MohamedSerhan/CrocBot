@@ -626,3 +626,13 @@ node_modules/ytdl-core/lib/info.js
 node_modules/ytdl-core/lib/sig.js
 node_modules/ytdl-core/lib/util.js
 node_modules/ytdl-core/typings/index.d.ts
+node_modules/discord.js-commando/.github/workflows/deploy.sh
+node_modules/discord.js-commando/.github/workflows/deploy.yml
+node_modules/discord.js-commando/.github/workflows/test.yml
+node_modules/discord.js-commando/src/commands/util/unknown-command.js
+node_modules/discord.js-commando/src/extensions/message.js
+node_modules/discord.js-commando/src/providers/sqlite-sync.js
+node_modules/discord.js-commando/src/types/category-channel.js
+node_modules/discord.js-commando/src/types/custom-emoji.js
+node_modules/discord.js-commando/src/types/text-channel.js
+node_modules/discord.js-commando/src/types/voice-channel.js
