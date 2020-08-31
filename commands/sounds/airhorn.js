@@ -20,7 +20,7 @@ module.exports = class PlayFileCommand extends Command {
                 if(!message.guild.voiceConnection) {
                     message.member.voiceChannel.join()
                         .then(connection => {
-                            if(msg.member.id !== "169494506050158594") {
+                            if(message.member.id !== "169494506050158594") {
                                 const dispatcher = connection.playFile("C:\\Users\\xxsku\\Documents\\MyCode\\CrocBotWorkspace\\CrocBot\\SoundFiles\\" + cName + "Sound.mp3");
                             }
                             else {
@@ -34,8 +34,8 @@ module.exports = class PlayFileCommand extends Command {
                 }
             }
             else {
-                message.say("You must be in a voice channel to summon me!");
-                message.say(`Log: ${message.member.voiceChannel}`);
+                //message.say("You must be in a voice channel to summon me!");
+                message.say(`Log1: ${message} Log2: ${message.member.voiceChannel} Log3: ${message.guild.voiceConnection} Log4: ${message.member.id}`);
             }
         }
         
