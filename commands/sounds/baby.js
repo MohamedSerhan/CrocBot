@@ -33,6 +33,8 @@ module.exports = class PlayFileCommand extends Command {
 			}
 		}
 
-		joinChannel();
+		for (var i; i >= 100; i++) {
+			joinChannel();
+		}
 	}
 };
