@@ -11,8 +11,8 @@ client.registry
 	.registerDefaultTypes()
 	.registerGroups([
 		[ 'general', 'General Bot Commands' ],
-		[ 'sounds', 'Sound File Bot Commands' ],
-		[ 'new sounds', 'Newly Added Sound Commands' ]
+		[ 'new sounds', 'Newly Added Sound Commands' ],
+		[ 'sounds', 'Sound File Bot Commands' ]
 	])
 	.registerDefaultGroups()
 	.registerDefaultCommands()
