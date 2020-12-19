@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const ytdl = require('ytdl-core');
+const ytpl = require('ytpl');
 let queue = new Map();
 
 module.exports = class PlayFileCommand extends Command {
@@ -15,13 +16,13 @@ module.exports = class PlayFileCommand extends Command {
 
 	run(message) {
 		let serverQueue = queue.get(message.guild.id);
-		if (message.content.startsWith('.y play')) {
+		if (message.content.startsWith('.y play') || message.content.startsWith('.yp')) {
 			execute(message, serverQueue);
 			return;
-		} else if (message.content.startsWith('.y skip')) {
+		} else if (message.content.startsWith('.y skip') || message.content.startsWith('.y>')) {
 			skip(message, serverQueue);
 			return;
-		} else if (message.content.startsWith('.y stop')) {
+		} else if (message.content.startsWith('.y stop') || message.content.startsWith('.ys')) {
 			stop(message, serverQueue);
 			return;
 		} else {
