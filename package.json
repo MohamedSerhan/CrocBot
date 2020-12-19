@@ -17,6 +17,7 @@
 		"ffmpeg-static": "latest",
 		"fluent-ffmpeg": "^2.1.2",
 		"opusscript": "0.0.7",
+		"pm2": "^4.5.1",
 		"ytdl-core": "^4.1.0"
 	}
 }
