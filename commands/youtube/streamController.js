@@ -1,6 +1,5 @@
 const { Command } = require('discord.js-commando');
-let dispatcher;
-
+const ytdl = require('ytdl-core');
 module.exports = class PlayFileCommand extends Command {
 	constructor(client) {
 		super(client, {
@@ -30,26 +29,30 @@ module.exports = class PlayFileCommand extends Command {
 
 		async function execute(message, serverQueue) {
 			const args = message.content.split(' ');
-
+			//console.log('EXECUTE FUNCTION ENTERED');
 			const voiceChannel = message.member.voice.channel;
 			if (!voiceChannel) return message.channel.send('You need to be in a voice channel to play music!');
 			const permissions = voiceChannel.permissionsFor(message.client.user);
 			if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) {
 				return message.channel.send('I need the permissions to join and speak in your voice channel!');
 			}
-			const songInfo = await ytdl.getInfo(args[1]);
+			//console.log('FINDING SONG YTDL with args: ', args[2]);
+			const songInfo = await ytdl.getBasicInfo(args[2]);
+			//console.log('FOUND SONG YTDL', songInfo);
 			const song = {
 				title: songInfo.videoDetails.title,
 				url: songInfo.videoDetails.video_url
 			};
+			//console.log('GOT SONG INFO YTDL');
 
+			//console.log('SERVERQUEUE IS HERE');
 			if (!serverQueue) {
 			} else {
 				serverQueue.songs.push(song);
 				console.log(serverQueue.songs);
 				return message.channel.send(`${song.title} has been added to the queue!`);
 			}
-
+			console.log('QUEUEcontruct IS HERE');
 			const queueContruct = {
 				textChannel: message.channel,
 				voiceChannel: voiceChannel,
@@ -62,7 +65,7 @@ module.exports = class PlayFileCommand extends Command {
 			queue.set(message.guild.id, queueContruct);
 			// Pushing the song to our songs array
 			queueContruct.songs.push(song);
-
+			console.log('TRY IS HERE');
 			try {
 				// Here we try to join the voicechat and save our connection into our object.
 				var connection = await voiceChannel.join();
@@ -77,24 +80,23 @@ module.exports = class PlayFileCommand extends Command {
 			}
 		}
 
-		// function joinChannel() {
-		// 	if (message.member.voice.channel) {
-		// 		if (!message.guild.voiceConnection) {
-		// 			message.member.voice.channel
-		// 				.join()
-		// 				.then((connection) => {
-		// 					dispatcher = connection.play('./SoundFiles/' + cName + 'Sound.mp3');
-		// 					dispatcher.on('finish', (end) => {
-		// 						connection.disconnect();
-		// 					});
-		// 				})
-		// 				.catch(console.error);
-		// 		}
-		// 	} else {
-		// 		message.say('You must be in a voice channel to summon me!');
-		// 	}
-		// }
-
-		// joinChannel();
+		function play(guild, song) {
+			console.log('PLAY FUNCTION ENTERED');
+			const serverQueue = queue.get(guild.id);
+			if (!song) {
+				serverQueue.voiceChannel.leave();
+				queue.delete(guild.id);
+				return;
+			}
+			const dispatcher = serverQueue.connection
+				.play(ytdl(song.url))
+				.on('finish', () => {
+					serverQueue.songs.shift();
+					play(guild, serverQueue.songs[0]);
+				})
+				.on('error', (error) => console.error(error));
+			dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+			serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+		}
 	}
 };
