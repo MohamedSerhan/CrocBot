@@ -52,8 +52,7 @@ module.exports = class PlayFileCommand extends Command {
 			//console.log('GOT SONG INFO YTDL');
 
 			//console.log('SERVERQUEUE IS HERE');
-			const botVoiceChannel = message.guild.voiceConnection.channel;
-			if (!serverQueue && voiceChannel !== botVoiceChannel) {
+			if (!serverQueue) {
 			} else {
 				serverQueue.songs.push(song);
 				console.log(serverQueue.songs);
@@ -120,6 +119,7 @@ module.exports = class PlayFileCommand extends Command {
 			if (!serverQueue) return message.channel.send('There is no song that I could stop!');
 
 			serverQueue.songs = [];
+			serverQueue = null;
 			serverQueue.connection.dispatcher.end();
 		}
 
