@@ -119,8 +119,8 @@ module.exports = class PlayFileCommand extends Command {
 			if (!serverQueue) return message.channel.send('There is no song that I could stop!');
 
 			serverQueue.songs = [];
-			serverQueue = null;
 			serverQueue.connection.dispatcher.end();
+			serverQueue = null;
 		}
 
 		function queueList(message, serverQueue) {
