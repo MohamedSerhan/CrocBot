@@ -24,9 +24,6 @@ module.exports = class PlayFileCommand extends Command {
 		} else if (message.content.startsWith('.y stop')) {
 			stop(message, serverQueue);
 			return;
-		} else if (message.content.startsWith('.y q')) {
-			queueList(message, serverQueue);
-			return;
 		} else {
 			message.channel.send(
 				'You need to enter a valid command! \n.y play [URL] | Plays specified URL or adds song to queue if there is a song already playing \n.y skip | Skips to next song in queue \n.y stop | Stops all music and clears the queue'
@@ -120,12 +117,6 @@ module.exports = class PlayFileCommand extends Command {
 
 			serverQueue.songs = [];
 			serverQueue.connection.dispatcher.end();
-			queue = new Map();
-			serverQueue = queue.get(message.guild.id);
-		}
-
-		function queueList(message, serverQueue) {
-			return message.channel.send('The current queue is: ', serverQueue.songs);
 		}
 	}
 };
