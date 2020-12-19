@@ -1,5 +1,7 @@
 const { Command } = require('discord.js-commando');
 const ytdl = require('ytdl-core');
+let queue = new Map();
+
 module.exports = class PlayFileCommand extends Command {
 	constructor(client) {
 		super(client, {
@@ -11,9 +13,7 @@ module.exports = class PlayFileCommand extends Command {
 	}
 
 	run(message) {
-		const queue = new Map();
-		const serverQueue = queue.get(message.guild.id);
-
+		let serverQueue = queue.get(message.guild.id);
 		if (message.content.startsWith('.y play')) {
 			execute(message, serverQueue);
 			return;
@@ -52,7 +52,7 @@ module.exports = class PlayFileCommand extends Command {
 				console.log(serverQueue.songs);
 				return message.channel.send(`${song.title} has been added to the queue!`);
 			}
-			console.log('QUEUEcontruct IS HERE');
+			//console.log('QUEUEcontruct IS HERE');
 			const queueContruct = {
 				textChannel: message.channel,
 				voiceChannel: voiceChannel,
@@ -65,7 +65,7 @@ module.exports = class PlayFileCommand extends Command {
 			queue.set(message.guild.id, queueContruct);
 			// Pushing the song to our songs array
 			queueContruct.songs.push(song);
-			console.log('TRY IS HERE');
+			//console.log('TRY IS HERE');
 			try {
 				// Here we try to join the voicechat and save our connection into our object.
 				var connection = await voiceChannel.join();
@@ -81,7 +81,7 @@ module.exports = class PlayFileCommand extends Command {
 		}
 
 		function play(guild, song) {
-			console.log('PLAY FUNCTION ENTERED');
+			//console.log('PLAY FUNCTION ENTERED');
 			const serverQueue = queue.get(guild.id);
 			if (!song) {
 				serverQueue.voiceChannel.leave();
@@ -97,6 +97,23 @@ module.exports = class PlayFileCommand extends Command {
 				.on('error', (error) => console.error(error));
 			dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 			serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+		}
+
+		function skip(message, serverQueue) {
+			if (!message.member.voice.channel)
+				return message.channel.send('You have to be in a voice channel to stop the music!');
+			if (!serverQueue) return message.channel.send('There is no song that I could skip!');
+			serverQueue.connection.dispatcher.end();
+		}
+
+		function stop(message, serverQueue) {
+			if (!message.member.voice.channel)
+				return message.channel.send('You have to be in a voice channel to stop the music!');
+
+			if (!serverQueue) return message.channel.send('There is no song that I could stop!');
+
+			serverQueue.songs = [];
+			serverQueue.connection.dispatcher.end();
 		}
 	}
 };
