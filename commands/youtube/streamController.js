@@ -25,7 +25,7 @@ module.exports = class PlayFileCommand extends Command {
 			stop(message, serverQueue);
 			return;
 		} else if (message.content.startsWith('.y q')) {
-			queue(message, serverQueue);
+			queueList(message, serverQueue);
 			return;
 		} else {
 			message.channel.send(
@@ -123,7 +123,7 @@ module.exports = class PlayFileCommand extends Command {
 			serverQueue.connection.dispatcher.end();
 		}
 
-		function queue(message, serverQueue) {
+		function queueList(message, serverQueue) {
 			return message.channel.send('The current queue is: ', serverQueue.songs);
 		}
 	}
