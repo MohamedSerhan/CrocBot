@@ -121,7 +121,8 @@ module.exports = class PlayFileCommand extends Command {
 			serverQueue.songs = [];
 			if (message.guild.voiceConnection.channel === message.member.voice.channel)
 				serverQueue.connection.dispatcher.end();
-			serverQueue = null;
+			queue = new Map();
+			serverQueue = queue.get(message.guild.id);
 		}
 
 		function queueList(message, serverQueue) {
