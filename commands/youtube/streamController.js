@@ -8,7 +8,8 @@ module.exports = class PlayFileCommand extends Command {
 			name: 'y',
 			group: 'general',
 			memberName: 'y',
-			description: 'Plays a URL from Youtube'
+			description:
+				'Plays a URL from Youtube \n.y play [URL] | Plays specified URL or adds song to queue if there is a song already playing \n.y skip | Skips to next song in queue \n.y stop | Stops all music and clears the queue'
 		});
 	}
 
@@ -24,7 +25,9 @@ module.exports = class PlayFileCommand extends Command {
 			stop(message, serverQueue);
 			return;
 		} else {
-			message.channel.send('You need to enter a valid command! .y play [URL] | .y skip | .y stop');
+			message.channel.send(
+				'You need to enter a valid command! \n.y play [URL] | Plays specified URL or adds song to queue if there is a song already playing \n.y skip | Skips to next song in queue \n.y stop | Stops all music and clears the queue'
+			);
 		}
 
 		async function execute(message, serverQueue) {
