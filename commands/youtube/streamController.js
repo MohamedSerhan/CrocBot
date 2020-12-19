@@ -1,6 +1,5 @@
 const { Command } = require('discord.js-commando');
 const ytdl = require('ytdl-core');
-const ytpl = require('ytpl');
 let queue = new Map();
 
 module.exports = class PlayFileCommand extends Command {
