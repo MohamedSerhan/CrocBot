@@ -119,7 +119,7 @@ module.exports = class PlayFileCommand extends Command {
 			if (!serverQueue) return message.channel.send('There is no song that I could stop!');
 
 			serverQueue.songs = [];
-			serverQueue.connection.dispatcher.end();
+			if (message.guild.voiceConnection.channel) serverQueue.connection.dispatcher.end();
 			serverQueue = null;
 		}
 
