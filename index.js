@@ -20,7 +20,7 @@ client.registry
 
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
-	client.user.setActivity('Chilling in the water.');
+	client.user.setActivity('in the water.');
 	client.queue = {};
 	if (typeof client.guilds == 'object' && typeof client.guilds[Symbol.iterator] == 'function') {
 		for (guild of client.guilds) client.queue[guild.id] = [];
