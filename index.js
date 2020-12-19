@@ -1,3 +1,4 @@
+//comment
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const { prefix } = require('./config.json');
