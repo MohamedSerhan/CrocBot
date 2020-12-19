@@ -15,13 +15,13 @@ module.exports = class PlayFileCommand extends Command {
 
 	run(message) {
 		let serverQueue = queue.get(message.guild.id);
-		if (message.content.startsWith('.y play') || message.content.startsWith('.yp')) {
+		if (message.content.startsWith('.y play')) {
 			execute(message, serverQueue);
 			return;
-		} else if (message.content.startsWith('.y skip') || message.content.startsWith('.y>')) {
+		} else if (message.content.startsWith('.y skip')) {
 			skip(message, serverQueue);
 			return;
-		} else if (message.content.startsWith('.y stop') || message.content.startsWith('.ys')) {
+		} else if (message.content.startsWith('.y stop')) {
 			stop(message, serverQueue);
 			return;
 		} else {
