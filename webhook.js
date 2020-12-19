@@ -1,5 +1,5 @@
 var secret = 'Kakarot@123';
-var repo = '/~/CrocBot';
+var repo = '~/CrocBot';
 let http = require('http');
 let crypto = require('crypto');
 const exec = require('child_process').exec;
