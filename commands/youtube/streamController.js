@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const ytdl = require('ytdl-core');
+const fs = require('fs');
 let queue = new Map();
 
 module.exports = class PlayFileCommand extends Command {
@@ -32,30 +33,27 @@ module.exports = class PlayFileCommand extends Command {
 
 		async function execute(message, serverQueue) {
 			const args = message.content.split(' ');
-			//console.log('EXECUTE FUNCTION ENTERED');
 			const voiceChannel = message.member.voice.channel;
 			if (!voiceChannel) return message.channel.send('You need to be in a voice channel to play music!');
 			const permissions = voiceChannel.permissionsFor(message.client.user);
+
 			if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) {
 				return message.channel.send('I need the permissions to join and speak in your voice channel!');
 			}
-			//console.log('FINDING SONG YTDL with args: ', args[2]);
+
 			const songInfo = await ytdl.getBasicInfo(args[2]);
-			//console.log('FOUND SONG YTDL', songInfo);
 			const song = {
 				title: songInfo.videoDetails.title,
 				url: songInfo.videoDetails.video_url
 			};
-			//console.log('GOT SONG INFO YTDL');
 
-			//console.log('SERVERQUEUE IS HERE');
 			if (!serverQueue) {
 			} else {
 				serverQueue.songs.push(song);
-				console.log(serverQueue.songs);
+				//console.log(serverQueue.songs);
 				return message.channel.send(`${song.title} has been added to the queue!`);
 			}
-			//console.log('QUEUEcontruct IS HERE');
+
 			const queueContruct = {
 				textChannel: message.channel,
 				voiceChannel: voiceChannel,
@@ -68,12 +66,12 @@ module.exports = class PlayFileCommand extends Command {
 			queue.set(message.guild.id, queueContruct);
 			// Pushing the song to our songs array
 			queueContruct.songs.push(song);
-			//console.log('TRY IS HERE');
 			try {
 				// Here we try to join the voicechat and save our connection into our object.
 				var connection = await voiceChannel.join();
 				queueContruct.connection = connection;
 				// Calling the play function to start a song
+				fs.writeFileSync(__dirname + '/stream.txt', 'stream:true');
 				play(message.guild, queueContruct.songs[0]);
 			} catch (err) {
 				// Printing the error message if the bot fails to join the voicechat
@@ -84,7 +82,6 @@ module.exports = class PlayFileCommand extends Command {
 		}
 
 		function play(guild, song) {
-			//console.log('PLAY FUNCTION ENTERED');
 			const serverQueue = queue.get(guild.id);
 			if (!song) {
 				serverQueue.voiceChannel.leave();
@@ -117,6 +114,11 @@ module.exports = class PlayFileCommand extends Command {
 
 			serverQueue.songs = [];
 			serverQueue.connection.dispatcher.end();
+			writeFalse();
+		}
+
+		function writeFalse() {
+			fs.writeFileSync(__dirname + '/stream.txt', 'stream:false');
 		}
 	}
 };
