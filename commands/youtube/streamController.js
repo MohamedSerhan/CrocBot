@@ -50,7 +50,7 @@ module.exports = class PlayFileCommand extends Command {
 			if (!serverQueue) {
 			} else {
 				serverQueue.songs.push(song);
-				console.log(serverQueue.songs);
+				//console.log(serverQueue.songs);
 				return message.channel.send(`${song.title} has been added to the queue!`);
 			}
 

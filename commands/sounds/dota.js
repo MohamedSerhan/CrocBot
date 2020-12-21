@@ -21,9 +21,8 @@ module.exports = class PlayFileCommand extends Command {
 		if (streamData) {
 			let result = streamData.split(':');
 			botIsStreaming = result[1];
-			console.log(result);
 		}
-		console.log(botIsStreaming);
+
 		function joinChannel() {
 			const voiceChannel = message.member.voice.channel;
 			if (voiceChannel) {
