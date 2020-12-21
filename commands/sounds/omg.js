@@ -31,6 +31,7 @@ module.exports = class PlayFileCommand extends Command {
 						.join()
 						.then((connection) => {
 							dispatcher = connection.play('./SoundFiles/' + cName + 'Sound.mp3');
+							dispatcher.setVolume(1);
 							dispatcher.on('finish', (end) => {
 								connection.disconnect();
 							});
