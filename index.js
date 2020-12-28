@@ -25,6 +25,7 @@ client.once('ready', () => {
 	if (typeof client.guilds == 'object' && typeof client.guilds[Symbol.iterator] == 'function') {
 		for (guild of client.guilds) client.queue[guild.id] = [];
 	}
+	global.isStreaming = false;
 });
 
 client.on('error', console.error);

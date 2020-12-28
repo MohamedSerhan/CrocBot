@@ -1,13 +1,10 @@
-const { Command } = require('discord.js-commando');
-const fs = require('fs');
-let botIsStreaming = '';
 let dispatcher;
 
 let playSoundFile = (message, cName) => {
 	function joinChannel() {
 		const voiceChannel = message.member.voice.channel;
 		if (voiceChannel) {
-			if (!message.guild.voiceConnection && botIsStreaming === 'false') {
+			if (!message.guild.voiceConnection) {
 				voiceChannel
 					.join()
 					.then((connection) => {
@@ -23,12 +20,7 @@ let playSoundFile = (message, cName) => {
 		}
 	}
 	try {
-		var streamData = fs.readFileSync('./commands/youtube/stream.txt', { encoding: 'utf8' });
-		if (streamData) {
-			let result = streamData.split(':');
-			botIsStreaming = result[1];
-		}
-		joinChannel();
+		if (global.isStreaming === false) joinChannel();
 	} catch (error) {
 		console.log(error);
 	}

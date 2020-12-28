@@ -1,6 +1,5 @@
 const { Command } = require('discord.js-commando');
 const ytdl = require('ytdl-core');
-const fs = require('fs');
 let queue = new Map();
 
 module.exports = class PlayFileCommand extends Command {
@@ -74,7 +73,7 @@ module.exports = class PlayFileCommand extends Command {
 					var connection = await voiceChannel.join();
 					queueContruct.connection = connection;
 					// Calling the play function to start a song
-					fs.writeFileSync(__dirname + '/stream.txt', 'stream:true');
+					global.isStreaming = true;
 					play(message.guild, queueContruct.songs[0]);
 				} catch (error) {
 					// Printing the error message if the bot fails to join the voicechat
@@ -128,7 +127,7 @@ module.exports = class PlayFileCommand extends Command {
 				if (!serverQueue) return message.channel.send('There is no song that I could stop!');
 
 				serverQueue.songs = [];
-				fs.writeFileSync(__dirname + '/stream.txt', 'stream:false');
+				global.isStreaming = false;
 				serverQueue.connection.dispatcher.end();
 			} catch (error) {
 				console.log('streamController 5: ', error);
