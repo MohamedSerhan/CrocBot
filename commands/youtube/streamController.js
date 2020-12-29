@@ -16,13 +16,13 @@ module.exports = class PlayFileCommand extends Command {
 	run(message) {
 		let serverQueue = queue.get(message.guild.id);
 		try {
-			if (message.content.startsWith('.y play')) {
+			if (message.content.startsWith('.y play') && message.content) {
 				execute(message, serverQueue);
 				return;
-			} else if (message.content.startsWith('.y skip')) {
+			} else if (message.content.startsWith('.y skip') && message.content) {
 				skip(message, serverQueue);
 				return;
-			} else if (message.content.startsWith('.y stop')) {
+			} else if (message.content.startsWith('.y stop') && message.content) {
 				stop(message, serverQueue);
 				return;
 			} else {
@@ -43,7 +43,7 @@ module.exports = class PlayFileCommand extends Command {
 				return message.channel.send('I need the permissions to join and speak in your voice channel!');
 			}
 
-			if (args[2].startsWith('https://') || args[2].startsWith('www.')) {
+			if (args[2] && (args[2].startsWith('https://') || args[2].startsWith('www.'))) {
 				const songInfo = await ytdl.getBasicInfo(args[2]);
 				const song = {
 					title: songInfo.videoDetails.title,
@@ -82,7 +82,9 @@ module.exports = class PlayFileCommand extends Command {
 					return message.channel.send(error);
 				}
 			} else {
-				return message.channel.send('Please enter a valid youtube URL! Search by name is not yet implemented!');
+				return message.channel.send(
+					'Please enter a valid youtube URL! Search by name is not yet implemented! If you did enter a link, chances are you forgot a space somewhere in the command'
+				);
 			}
 		}
 
