@@ -83,7 +83,7 @@ module.exports = class PlayFileCommand extends Command {
 				}
 			} else {
 				return message.channel.send(
-					'Please enter a valid youtube URL! Search by name is not yet implemented! If you did enter a link, chances are you forgot a space somewhere in the command'
+					'Please enter a valid youtube URL! Search by name is not yet implemented! If you did enter a link, chances are you forgot a space somewhere in the command.'
 				);
 			}
 		}
@@ -99,11 +99,12 @@ module.exports = class PlayFileCommand extends Command {
 				const dispatcher = serverQueue.connection
 					.play(ytdl(song.url))
 					.on('finish', () => {
+						global.isStreaming = false;
 						serverQueue.songs.shift();
 						play(guild, serverQueue.songs[0]);
 					})
 					.on('error', (error) => console.error(error));
-				dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+				dispatcher.setVolume(0.5);
 				serverQueue.textChannel.send(`Start playing: **${song.title}**`);
 			} catch (error) {
 				console.log('streamController 3: ', error);
