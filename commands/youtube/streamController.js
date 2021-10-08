@@ -103,7 +103,7 @@ module.exports = class PlayFileCommand extends Command {
 						serverQueue.songs.shift();
 						play(guild, serverQueue.songs[0]);
 					})
-					.on('error', (error) => console.error(error));
+					.catch((error) => console.error('dispatcher error: '+ error));
 				dispatcher.setVolume(0.5);
 				serverQueue.textChannel.send(`Start playing: **${song.title}**`);
 			} catch (error) {
