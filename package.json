@@ -16,7 +16,7 @@
 		"discord.js": "^12.5.3",
 		"discord.js-commando": "git+https://github.com/discordjs/Commando.git",
 		"ffmpeg": "0.0.4",
-		"ffmpeg-static": "latest",
+		"ffmpeg-static": "^4.4.0",
 		"fluent-ffmpeg": "^2.1.2",
 		"opusscript": "0.0.7",
 		"ytdl-core": "^4.9.1"
