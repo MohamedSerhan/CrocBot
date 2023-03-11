@@ -97,7 +97,12 @@ module.exports = class PlayFileCommand extends Command {
 					return;
 				}
 				const dispatcher = serverQueue.connection
-					.play(ytdl(song.url))
+					.play(ytdl(song.url), {
+						requestOptions: {
+							headers: {
+							}
+						}
+					})
 					.on('finish', () => {
 						global.isStreaming = false;
 						serverQueue.songs.shift();
