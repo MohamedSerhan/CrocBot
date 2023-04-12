@@ -1,3 +1,4 @@
 node_modules/
 commands/sounds/_COPYME.js
 commands/youtube/stream.txt
+.env
